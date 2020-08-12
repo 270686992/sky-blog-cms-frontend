@@ -10,7 +10,7 @@ const categoryRouter = {
   name: null,
   title: '文章分类管理',
   type: 'folder',
-  icon: 'el-icon-guide',
+  icon: 'el-icon-folder',
   filePath: 'view/category/',
   order: null,
   inNav: true,
