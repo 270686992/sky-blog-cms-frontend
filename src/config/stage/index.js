@@ -2,6 +2,7 @@ import adminConfig from './admin'
 import bookConfig from './book' // 引入图书管理路由文件
 import categoryConfig from './category' // 引入文章分类管理路由文件
 import tagConfig from './tag' // 引入标签管理路由文件
+import articleConfig from './article' // 引入文章管理路由文件
 import pluginsConfig from './plugin'
 import Utils from '@/lin/util/util'
 
@@ -48,6 +49,7 @@ let homeRouter = [
   },
   categoryConfig,
   tagConfig,
+  articleConfig,
   bookConfig,
   adminConfig,
 ]
