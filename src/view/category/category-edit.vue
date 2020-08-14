@@ -11,7 +11,12 @@
         </el-form-item>
 
         <el-form-item label="权重" prop="priority">
-          <el-input size="medium" type="number" v-model="form.priority" placeholder="请填写文章分类的权重,权重越低,排名越上"></el-input>
+          <el-input
+            size="medium"
+            type="number"
+            v-model="form.priority"
+            placeholder="请填写文章分类的权重,权重越低,排名越上"
+          ></el-input>
         </el-form-item>
 
         <el-form-item label="上线状态" prop="online">
@@ -31,8 +36,13 @@
     </div>
 
     <div slot="footer" class="dialog-footer" style="padding-left:5px;">
-      <el-button type="primary" @click="submitForm" v-permission="{ permission: '更新文章分类', type: 'disabled' }"
-      >确 定</el-button>
+      <el-button
+        type="primary"
+        @click="submitForm"
+        v-permission="{ permission: '更新文章分类', type: 'disabled' }"
+        :loading="loading"
+        >确 定</el-button
+      >
 
       <el-button @click="resetForm('form')">重 置</el-button>
     </div>
@@ -71,7 +81,8 @@ export default {
   },
   data() {
     return {
-      display: true, // 文章上线状态默认值
+      loading: false, // 是否显示加载数据动画
+      display: true, // 文章分类上线状态值
       initData: [], // 文章分类图标初始数据
       maxNum: 1, // 文章分类图标最大数量
       // 上传图片的规则
@@ -89,7 +100,7 @@ export default {
     }
   },
   watch: {
-    // 监听文章上线状态切换
+    // 监听文章分类上线状态切换
     display(val) {
       this.form.online = val ? 1 : 0
     },
@@ -106,17 +117,28 @@ export default {
   methods: {
     // 提交表单
     async submitForm() {
-      await this.getValue()
-      const form = { ...this.form }
-      let res
-      if (this.isCreate) {
-        res = await Category.createCategory(form)
-      } else {
-        res = await Category.updateCategoryById(this.categoryId, form)
-      }
-      if (res.code < window.MAX_SUCCESS_CODE) {
-        this.$message.success(`${res.message}`)
-        this.$emit('dialogClose')
+      try {
+        await this.getValue()
+        const form = { ...this.form }
+        let res
+        if (this.isCreate) {
+          this.loading = true
+          res = await Category.createCategory(form)
+          this.loading = false
+        } else {
+          this.loading = true
+          res = await Category.updateCategoryById(this.categoryId, form)
+          this.loading = false
+        }
+        if (res.code < window.MAX_SUCCESS_CODE) {
+          this.$message.success(`${res.message}`)
+          this.$emit('dialogClose')
+        } else {
+          this.$message.error(`${res.message}`)
+        }
+      } catch (error) {
+        this.loading = false
+        console.log(error)
       }
     },
     // 获取上传图片信息

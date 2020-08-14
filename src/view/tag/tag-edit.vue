@@ -23,7 +23,11 @@
     </div>
 
     <div slot="footer" class="dialog-footer" style="padding-left:5px;">
-      <el-button type="primary" @click="submitForm" v-permission="{ permission: '更新标签', type: 'disabled' }"
+      <el-button
+        type="primary"
+        @click="submitForm"
+        v-permission="{ permission: '更新标签', type: 'disabled' }"
+        :loading="loading"
         >确 定</el-button
       >
 
@@ -60,7 +64,8 @@ export default {
   },
   data() {
     return {
-      display: true, // 标签上线状态默认值
+      loading: false, // 是否显示加载数据动画
+      display: true, // 标签上线状态值
       form: {
         name: '',
         online: 1,
@@ -84,16 +89,27 @@ export default {
   methods: {
     // 提交表单
     async submitForm() {
-      const form = { ...this.form }
-      let res
-      if (this.isCreate) {
-        res = await Tag.createTag(form)
-      } else {
-        res = await Tag.updateTagById(this.tagId, form)
-      }
-      if (res.code < window.MAX_SUCCESS_CODE) {
-        this.$message.success(`${res.message}`)
-        this.$emit('dialogClose')
+      try {
+        const form = { ...this.form }
+        let res
+        if (this.isCreate) {
+          this.loading = true
+          res = await Tag.createTag(form)
+          this.loading = false
+        } else {
+          this.loading = true
+          res = await Tag.updateTagById(this.tagId, form)
+          this.loading = false
+        }
+        if (res.code < window.MAX_SUCCESS_CODE) {
+          this.$message.success(`${res.message}`)
+          this.$emit('dialogClose')
+        } else {
+          this.$message.error(`${res.message}`)
+        }
+      } catch (error) {
+        this.loading = false
+        console.log(error)
       }
     },
     // 重置表单
