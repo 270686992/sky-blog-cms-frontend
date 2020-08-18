@@ -109,7 +109,7 @@ export default {
   },
   async created() {
     this.loading = true
-    this.superCategoryId = this.$route.params.id
+    this.superCommentId = this.$route.params.id
     this.getSubCommentList()
     this.loading = false
   },
@@ -125,7 +125,7 @@ export default {
     async getSubCommentList() {
       const page = this.currentPage - 1
       const count = this.pageCount
-      const commentList = await Comment.getSubCommentListByPage(page, count, this.superCategoryId)
+      const commentList = await Comment.getSubCommentListByPage(page, count, this.superCommentId)
       this.tableData = commentList.items
       this.totalNums = commentList.total
     },
