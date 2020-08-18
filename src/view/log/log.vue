@@ -45,6 +45,7 @@
           <span class="point-time"></span>
           <aside>
             <p class="things" v-html="log.message"></p>
+            <p class="things" v-html="'接口信息: ' + log.method + ' ' + log.path"></p>
             <p class="brief">
               <span class="text-yellow">{{ log.username }}</span> {{ log.time | dateTimeFormatter }}
             </p>

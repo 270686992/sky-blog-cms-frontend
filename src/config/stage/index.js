@@ -1,5 +1,13 @@
 import adminConfig from './admin'
-import bookConfig from './book' // 引入图书管理路由文件
+// import bookConfig from './book' // 引入图书管理路由文件
+import categoryConfig from './category' // 引入文章分类管理路由文件
+import tagConfig from './tag' // 引入标签管理路由文件
+import articleConfig from './article' // 引入文章管理路由文件
+import friendLinkConfig from './friend-link' // 引入友情链接管理路由文件
+import commentConfig from './comment' // 引入文章评论管理路由文件
+import leaveMessageConfig from './leave-message' // 引入留言管理路由文件
+import customerConfig from './customer' // 引入用户管理路由文件
+import webSiteInfoConfig from './web-site-info' // 引入站点信息管理路由文件
 import pluginsConfig from './plugin'
 import Utils from '@/lin/util/util'
 
@@ -44,7 +52,15 @@ let homeRouter = [
     inNav: false,
     icon: 'iconfont icon-rizhiguanli',
   },
-  bookConfig,
+  categoryConfig,
+  tagConfig,
+  articleConfig,
+  commentConfig,
+  leaveMessageConfig,
+  friendLinkConfig,
+  customerConfig,
+  webSiteInfoConfig,
+  // bookConfig,
   adminConfig,
 ]
 
@@ -72,7 +88,7 @@ function filterPlugin(data) {
 
 filterPlugin(homeRouter)
 
-homeRouter = homeRouter.concat(plugins)
+// homeRouter = homeRouter.concat(plugins)
 
 // 处理顺序
 homeRouter = Utils.sortByOrder(homeRouter)
