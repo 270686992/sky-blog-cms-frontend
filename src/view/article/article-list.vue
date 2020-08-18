@@ -86,7 +86,7 @@ export default {
       currentPage: 1,
       pageCount: 10,
       refreshPagination: true, // 页数增加的时候，因为缓存的缘故，需要刷新 Pagination 组件
-      showEdit: false, // 是否显示添加/更新文章页面
+      showEdit: false, // 是否显示更新文章页面
     }
   },
   async created() {
