@@ -27,9 +27,11 @@
 
       <el-table-column prop="priority" label="权重" width="200"></el-table-column>
 
-      <el-table-column prop="online" label="状态" min-width="100">
+      <el-table-column prop="online" label="状态" width="200">
         <template slot-scope="scope">{{ scope.row.online | onlineFormat }}</template>
       </el-table-column>
+
+      <el-table-column prop="description" label="描述" min-width="100"></el-table-column>
 
       <el-table-column fixed="right" width="200" label="操作">
         <template slot-scope="scope">

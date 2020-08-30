@@ -6,11 +6,15 @@
       </div>
 
       <el-form :model="form" status-icon ref="form" label-width="100px" @submit.native.prevent>
-        <el-form-item label="名称" prop="name">
+        <el-form-item label="名称" prop="name" required>
           <el-input size="medium" v-model="form.name" placeholder="请填写文章分类的名称"></el-input>
         </el-form-item>
 
-        <el-form-item label="权重" prop="priority">
+        <el-form-item label="描述" prop="description">
+          <el-input size="medium" v-model="form.description" placeholder="请填写文章分类的描述"></el-input>
+        </el-form-item>
+
+        <el-form-item label="权重" prop="priority" required>
           <el-input
             size="medium"
             type="number"
@@ -19,7 +23,7 @@
           ></el-input>
         </el-form-item>
 
-        <el-form-item label="上线状态" prop="online">
+        <el-form-item label="上线状态" prop="online" required>
           <el-switch
             v-model="display"
             active-color="#13ce66"
@@ -93,6 +97,7 @@ export default {
       },
       form: {
         name: '',
+        description: '',
         icon: '',
         online: 1,
         priority: 0,
